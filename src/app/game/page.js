@@ -135,12 +135,10 @@ export default function GamePage() {
   useEffect(() => {
     const initConnection = async () => {
       try {
-        const res = await fetch('/api/ip');
-        const data = await res.json();
-        setIpAddress(data.ip);
-
-        // Connect to WebSocket Server on port 3001
-        const wsUrl = `ws://${data.ip}:3001`;
+        const nextPublicWsUrl = process.env.NEXT_PUBLIC_WS_URL || process.env.NEXT_PUBLIC_WS_SERVER;
+        const host = window.location.hostname;
+        const wsUrl = nextPublicWsUrl || `ws://${host}:3001`;
+        
         const ws = new WebSocket(wsUrl);
         socketRef.current = ws;
 
@@ -742,7 +740,7 @@ export default function GamePage() {
 
   // Controller Pairing URL
   const controllerUrl = typeof window !== 'undefined'
-    ? `${window.location.protocol}//${ipAddress}:3000/controller?room=${roomId}`
+    ? `${window.location.origin}/controller?room=${roomId}`
     : '';
 
   return (
