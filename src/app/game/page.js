@@ -137,7 +137,14 @@ export default function GamePage() {
       try {
         const nextPublicWsUrl = process.env.NEXT_PUBLIC_WS_URL || process.env.NEXT_PUBLIC_WS_SERVER;
         const host = window.location.hostname;
-        const wsUrl = nextPublicWsUrl || `ws://${host}:3001`;
+        let wsUrl = nextPublicWsUrl || `ws://${host}:3001`;
+        
+        // Auto-sanitize protocols if http/https is specified
+        if (wsUrl.startsWith('https://')) {
+          wsUrl = wsUrl.replace('https://', 'wss://');
+        } else if (wsUrl.startsWith('http://')) {
+          wsUrl = wsUrl.replace('http://', 'ws://');
+        }
         
         const ws = new WebSocket(wsUrl);
         socketRef.current = ws;
