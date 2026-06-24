@@ -14,109 +14,305 @@ export default function Home() {
     setIsMobile(mobileUA || mobileWidth);
   }, []);
 
-  return (
-    <div className="relative min-h-screen flex flex-col items-center justify-center bg-[#050114] text-white overflow-hidden font-sans select-none">
-      {/* Background Neon Gradients */}
-      <div className="absolute top-[-20%] left-[-20%] w-[60%] h-[60%] rounded-full bg-purple-900/20 blur-[150px] pointer-events-none" />
-      <div className="absolute bottom-[-20%] right-[-20%] w-[60%] h-[60%] rounded-full bg-cyan-900/20 blur-[150px] pointer-events-none" />
-      
-      {/* Stars Overlay */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.15)_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none opacity-45" />
+  const scrollToSection = (id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
-      {/* Main container */}
-      <div className="z-10 max-w-4xl w-full px-6 flex flex-col items-center py-12">
-        
-        {/* Title Block */}
-        <div className="text-center mb-16 animate-fade-in">
-          <div className="inline-block px-4 py-1.5 mb-4 text-xs font-semibold tracking-wider text-cyan-400 uppercase bg-cyan-950/40 border border-cyan-800/50 rounded-full shadow-[0_0_15px_rgba(34,211,238,0.1)]">
-            Local Multi-Screen Arcade
-          </div>
-          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-500 bg-clip-text text-transparent filter drop-shadow-[0_0_20px_rgba(168,85,247,0.3)]">
-            NEON SPARK
-          </h1>
-          <p className="text-lg md:text-xl text-zinc-400 max-w-2xl mx-auto leading-relaxed">
-            A real-time remote-controlled space game. Pair your phone instantly and steer your fighter on the big screen!
-          </p>
+  return (
+    <div className="relative min-h-screen bg-[#09090b] text-white overflow-x-hidden font-sans select-none flex flex-col">
+      {/* Background Cyber-Dark Gradients */}
+      <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-cyan-950/10 blur-[150px] pointer-events-none" />
+      <div className="absolute bottom-[20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-zinc-900/10 blur-[150px] pointer-events-none" />
+
+      {/* Grid Overlay */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:30px_30px] pointer-events-none" />
+
+      {/* 1. HEADER SECTION */}
+      <header className="sticky top-0 z-50 w-full bg-[#09090b]/80 backdrop-blur-md border-b border-zinc-900/80 py-4 px-6 md:px-12 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <span className="text-xl">✨</span>
+          <Link href="/" className="text-base md:text-lg font-black tracking-widest bg-gradient-to-r from-zinc-100 to-cyan-400 bg-clip-text text-transparent filter drop-shadow-[0_0_8px_rgba(6,182,212,0.2)]">
+            NEON SPARK ARCADE
+          </Link>
         </div>
 
-        {/* Action Selection */}
-        <div className="grid md:grid-cols-2 gap-8 w-full max-w-3xl">
+        {/* Navigation Links */}
+        <nav className="hidden md:flex items-center gap-8 text-xs font-bold uppercase tracking-wider text-zinc-400">
+          <Link href="/game" className="hover:text-cyan-400 transition-colors">
+            Game Catalog
+          </Link>
+          <Link href="/controller" className="hover:text-cyan-400 transition-colors">
+            Pair Controller
+          </Link>
+          <button onClick={() => scrollToSection('setup')} className="hover:text-cyan-400 transition-colors cursor-pointer">
+            How It Works
+          </button>
+          <button onClick={() => scrollToSection('features')} className="hover:text-cyan-400 transition-colors cursor-pointer">
+            Console Specs
+          </button>
+        </nav>
+
+        {/* Quick Play CTA */}
+        <Link
+          href="/game"
+          className="px-4 py-2 border border-cyan-500/40 hover:border-cyan-400 text-cyan-400 hover:bg-cyan-950/20 active:scale-95 font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-[0_0_15px_rgba(6,182,212,0.1)]"
+        >
+          Get Started
+        </Link>
+      </header>
+
+      {/* 2. HERO AREA (LEFT-RIGHT SPLIT) */}
+      <section className="relative min-h-[85vh] flex items-center justify-center px-6 md:px-12 py-16 z-10">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none opacity-50" />
+
+        <div className="max-w-6xl w-full grid md:grid-cols-12 gap-12 items-center">
           
-          {/* Option 1: Game Host (PC / Big Screen) */}
-          <Link
-            href="/game"
-            className={`group relative flex flex-col justify-between p-8 rounded-2xl border transition-all duration-300 ${
-              !isMobile
-                ? 'bg-gradient-to-br from-[#0c1033] to-[#050114] border-cyan-500/50 shadow-[0_0_30px_rgba(6,182,212,0.15)] ring-2 ring-cyan-500/20'
-                : 'bg-[#0b071e]/50 border-zinc-800/80 hover:border-cyan-500/30'
-            }`}
-          >
-            <div>
-              {/* Highlight badge for recommended option */}
-              {!isMobile && (
-                <span className="absolute top-4 right-4 bg-cyan-500 text-black text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
-                  Recommended for PC
-                </span>
-              )}
-              
-              <div className="w-12 h-12 rounded-xl bg-cyan-950/80 border border-cyan-700/50 flex items-center justify-center text-cyan-400 text-2xl font-bold mb-6 group-hover:scale-110 transition-transform shadow-[0_0_15px_rgba(6,182,212,0.2)]">
-                🖥️
-              </div>
-              <h2 className="text-2xl font-bold text-white mb-3 tracking-wide group-hover:text-cyan-400 transition-colors">
-                Launch Game Screen
-              </h2>
-              <p className="text-zinc-400 text-sm leading-relaxed mb-6">
-                Open this on your desktop, laptop, or smart TV. It will display the arcade screen, generate a room code, and show a join QR code.
-              </p>
+          {/* Left Column: Heading and CTAs */}
+          <div className="md:col-span-7 flex flex-col items-center md:items-start text-center md:text-left gap-6 animate-fade-in">
+            <div className="inline-block px-4 py-1.5 text-xs font-semibold tracking-widest text-cyan-400 uppercase bg-cyan-950/20 border border-cyan-800/40 rounded-full shadow-[0_0_15px_rgba(6,182,212,0.05)]">
+              🚀 Multi-Screen Browser Console
             </div>
             
-            <div className="flex items-center text-cyan-400 font-semibold text-sm group-hover:translate-x-1.5 transition-transform">
-              Start Server & Game &rarr;
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-none bg-gradient-to-r from-white via-zinc-100 to-zinc-400 bg-clip-text text-transparent filter drop-shadow-[0_0_20px_rgba(6,182,212,0.15)]">
+              NEON SPARK
+            </h1>
+            
+            <p className="text-base sm:text-lg text-zinc-400 max-w-xl leading-relaxed">
+              Steer space cruisers and battle tanks on the big screen using your phone as a flight stick. Instantly sync your controller, fire bouncing lasers, and conquer squadron missions.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mt-4 z-20">
+              <Link
+                href="/game"
+                className="px-8 py-4 bg-cyan-500 hover:bg-cyan-400 active:scale-95 text-zinc-950 font-black uppercase tracking-widest rounded-xl text-sm transition-all shadow-[0_0_25px_rgba(6,182,212,0.25)] text-center cursor-pointer"
+              >
+                GET STARTED &rarr;
+              </Link>
+              
+              <Link
+                href="/controller"
+                className="px-8 py-4 bg-zinc-900 border border-zinc-800 hover:border-cyan-500/40 hover:text-cyan-400 text-zinc-300 font-bold uppercase tracking-widest rounded-xl text-sm transition-all text-center cursor-pointer"
+              >
+                Pair Phone Controller
+              </Link>
             </div>
-          </Link>
+          </div>
 
-          {/* Option 2: Mobile Remote */}
-          <Link
-            href="/controller"
-            className={`group relative flex flex-col justify-between p-8 rounded-2xl border transition-all duration-300 ${
-              isMobile
-                ? 'bg-gradient-to-br from-[#1e0729] to-[#050114] border-pink-500/50 shadow-[0_0_30px_rgba(236,72,153,0.15)] ring-2 ring-pink-500/20'
-                : 'bg-[#0b071e]/50 border-zinc-800/80 hover:border-pink-500/30'
-            }`}
-          >
-            <div>
-              {/* Highlight badge for recommended option */}
-              {isMobile && (
-                <span className="absolute top-4 right-4 bg-pink-500 text-black text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
-                  Recommended for Phone
-                </span>
-              )}
-
-              <div className="w-12 h-12 rounded-xl bg-pink-950/80 border border-pink-700/50 flex items-center justify-center text-pink-400 text-2xl font-bold mb-6 group-hover:scale-110 transition-transform shadow-[0_0_15px_rgba(236,72,153,0.2)]">
-                📱
+          {/* Right Column: Game Image Showcase */}
+          <div className="md:col-span-5 grid grid-cols-2 gap-4 relative animate-fade-in z-10">
+            {/* Background Glow under images */}
+            <div className="absolute inset-0 bg-cyan-500/5 blur-[60px] pointer-events-none rounded-full" />
+            
+            {/* Game 1 Image Card */}
+            <Link 
+              href="/game"
+              className="group relative flex flex-col rounded-2xl border border-zinc-800/80 hover:border-cyan-500/40 bg-zinc-900/20 overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(6,182,212,0.15)] cursor-pointer"
+            >
+              <div className="aspect-[3/4] relative w-full overflow-hidden">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img 
+                  src="/neon_shift_cover.png" 
+                  alt="Neon Shift Space Shooter" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent" />
               </div>
-              <h2 className="text-2xl font-bold text-white mb-3 tracking-wide group-hover:text-pink-400 transition-colors">
-                Mobile Controller
-              </h2>
-              <p className="text-zinc-400 text-sm leading-relaxed mb-6">
-                Open this on your phone to connect and steer. Features a glassmorphic analog touch joystick, haptic rumble on hit, and live vitals.
+              <div className="p-4 absolute bottom-0 left-0 right-0">
+                <span className="text-[7px] font-black uppercase tracking-widest text-zinc-400 bg-zinc-900/60 px-2 py-0.5 rounded border border-zinc-800">Space Shooter</span>
+                <h3 className="text-sm font-black text-white tracking-wide mt-2 group-hover:text-cyan-400 transition-colors">NEON SHIFT</h3>
+              </div>
+            </Link>
+
+            {/* Game 2 Image Card */}
+            <Link 
+              href="/game"
+              className="group relative flex flex-col rounded-2xl border border-zinc-800/80 hover:border-cyan-500/40 bg-zinc-900/20 overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(6,182,212,0.15)] mt-6 md:mt-12 cursor-pointer"
+            >
+              <div className="aspect-[3/4] relative w-full overflow-hidden">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img 
+                  src="/grid_defender_cover.png" 
+                  alt="Grid Defender Tank Battle" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent" />
+              </div>
+              <div className="p-4 absolute bottom-0 left-0 right-0">
+                <span className="text-[7px] font-black uppercase tracking-widest text-zinc-400 bg-zinc-900/60 px-2 py-0.5 rounded border border-zinc-800">Tank Arena</span>
+                <h3 className="text-sm font-black text-white tracking-wide mt-2 group-hover:text-cyan-400 transition-colors">GRID DEFENDER</h3>
+              </div>
+            </Link>
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* 3. HOW IT WORKS / PAIRING STEPS */}
+      <section id="setup" className="w-full bg-[#0c0c0e]/60 border-t border-zinc-900/80 py-20 z-10">
+        <div className="max-w-5xl mx-auto px-6">
+          
+          <div className="text-center mb-16">
+            <div className="text-[10px] text-cyan-400 font-bold uppercase tracking-[0.25em] mb-2">SETUP PROTOCOLS</div>
+            <h2 className="text-3xl md:text-4xl font-extrabold tracking-wide">THREE STEPS TO PLAY</h2>
+            <div className="w-12 h-1 bg-cyan-500 mx-auto mt-4 rounded-full" />
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 text-center">
+            {/* Step 1 */}
+            <div className="flex flex-col items-center p-6 bg-zinc-900/20 border border-zinc-800/80 rounded-2xl">
+              <span className="w-10 h-10 rounded-full bg-cyan-950/30 border border-cyan-800/60 text-cyan-400 font-black flex items-center justify-center mb-6 shadow-[0_0_10px_rgba(6,182,212,0.15)]">
+                1
+              </span>
+              <h4 className="text-lg font-bold text-white mb-2">Host Arcade</h4>
+              <p className="text-zinc-500 text-xs leading-relaxed">
+                Launch the **Game Screen** on a desktop, TV, or laptop browser. Choose your game and open the lobby to generate a unique room code.
               </p>
             </div>
 
-            <div className="flex items-center text-pink-400 font-semibold text-sm group-hover:translate-x-1.5 transition-transform">
-              Join Arcade Room &rarr;
+            {/* Step 2 */}
+            <div className="flex flex-col items-center p-6 bg-zinc-900/20 border border-zinc-800/80 rounded-2xl">
+              <span className="w-10 h-10 rounded-full bg-cyan-950/30 border border-cyan-800/60 text-cyan-400 font-black flex items-center justify-center mb-6 shadow-[0_0_10px_rgba(6,182,212,0.15)]">
+                2
+              </span>
+              <h4 className="text-lg font-bold text-white mb-2">Sync Controller</h4>
+              <p className="text-zinc-500 text-xs leading-relaxed">
+                Scan the on-screen QR code or go to the manual link on your phone. Enter the code to sync your mobile browser as a pilot console.
+              </p>
             </div>
-          </Link>
+
+            {/* Step 3 */}
+            <div className="flex flex-col items-center p-6 bg-zinc-900/20 border border-zinc-800/80 rounded-2xl">
+              <span className="w-10 h-10 rounded-full bg-cyan-950/30 border border-cyan-800/60 text-cyan-400 font-black flex items-center justify-center mb-6 shadow-[0_0_10px_rgba(6,182,212,0.15)]">
+                3
+              </span>
+              <h4 className="text-lg font-bold text-white mb-2">Launch Mission</h4>
+              <p className="text-zinc-500 text-xs leading-relaxed">
+                Hold your phone in landscape layout. Glide the joystick to steer, tap Fire to blast targets, and cooperate with up to 4 squad members!
+              </p>
+            </div>
+          </div>
 
         </div>
+      </section>
 
-        {/* Footer Instructions */}
-        <div className="mt-16 text-center text-xs text-zinc-500">
-          <p>Both devices must be connected to the same Wi-Fi network.</p>
-          <p className="mt-1">Powered by React, Web Audio Synthesizers, and HTML5 WebSockets.</p>
+      {/* 4. CONSOLE SPECIFICATIONS / TECHNICAL Highlights */}
+      <section id="features" className="w-full max-w-5xl mx-auto px-6 py-20 border-t border-zinc-900/80 z-10">
+        <div className="text-center mb-16">
+          <div className="text-[10px] text-cyan-400 font-bold uppercase tracking-[0.25em] mb-2">CONSOLE SPECIFICATIONS</div>
+          <h2 className="text-3xl md:text-4xl font-extrabold tracking-wide">SYSTEM HARDWARE HIGHLIGHTS</h2>
+          <div className="w-12 h-1 bg-cyan-500 mx-auto mt-4 rounded-full" />
         </div>
 
-      </div>
+        <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6">
+          {/* Feature 1 */}
+          <div className="p-5 rounded-2xl bg-zinc-900/20 border border-zinc-800/80 text-center flex flex-col items-center">
+            <div className="text-2xl mb-3">⚡</div>
+            <h5 className="text-sm font-bold text-white mb-1">Ultra-Low Latency</h5>
+            <p className="text-zinc-500 text-[10px] leading-relaxed">
+              Powered by raw WebSocket tunnels for sub-50ms controller joystick tracking.
+            </p>
+          </div>
+
+          {/* Feature 2 */}
+          <div className="p-5 rounded-2xl bg-zinc-900/20 border border-zinc-800/80 text-center flex flex-col items-center">
+            <div className="text-2xl mb-3">🔊</div>
+            <h5 className="text-sm font-bold text-white mb-1">Web Synth Audio</h5>
+            <p className="text-zinc-500 text-[10px] leading-relaxed">
+              Synthesized sound effects generated live using standard Web Audio oscillator gates.
+            </p>
+          </div>
+
+          {/* Feature 3 */}
+          <div className="p-5 rounded-2xl bg-zinc-900/20 border border-zinc-800/80 text-center flex flex-col items-center">
+            <div className="text-2xl mb-3">📳</div>
+            <h5 className="text-sm font-bold text-cyan-400 mb-1">Haptic Rumble</h5>
+            <p className="text-zinc-500 text-[10px] leading-relaxed">
+              Vibration patterns triggered on mobile controllers during hit and fire impulses.
+            </p>
+          </div>
+
+          {/* Feature 4 */}
+          <div className="p-5 rounded-2xl bg-zinc-900/20 border border-zinc-800/80 text-center flex flex-col items-center">
+            <div className="text-2xl mb-3">👥</div>
+            <h5 className="text-sm font-bold text-white mb-1">4-Player Squadron</h5>
+            <p className="text-zinc-500 text-[10px] leading-relaxed">
+              Connect up to 4 mobile flight sticks simultaneously for local cooperative squads.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. FOOTER */}
+      <footer className="w-full bg-[#060608] border-t border-zinc-900/80 py-16 px-6 md:px-12 text-zinc-400 mt-auto">
+        <div className="max-w-5xl mx-auto flex flex-col gap-12">
+          
+          {/* Top detailed grid */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {/* Column 1: Logo and details */}
+            <div className="col-span-2 md:col-span-1 flex flex-col gap-4">
+              <div className="flex items-center gap-1.5 font-bold uppercase tracking-wider text-white">
+                <span>✨</span> NEON SPARK ARCADE
+              </div>
+              <p className="text-xs text-zinc-500 leading-relaxed">
+                A real-time, multi-screen cooperative browser game platform. Turn your smartphone into a tactical console flight stick.
+              </p>
+              <div className="flex gap-3 text-xs mt-2 text-zinc-500">
+                <span className="hover:text-cyan-400 cursor-pointer">👾 Discord</span>
+                <span className="hover:text-cyan-400 cursor-pointer">🐙 GitHub</span>
+                <span className="hover:text-cyan-400 cursor-pointer">🐦 Twitter</span>
+              </div>
+            </div>
+
+            {/* Column 2: Game Catalogue */}
+            <div className="flex flex-col gap-3 text-xs">
+              <span className="font-extrabold uppercase tracking-widest text-zinc-200">Programs</span>
+              <Link href="/game" className="hover:text-cyan-400 transition-colors text-left cursor-pointer">NEON SHIFT Space Shooter</Link>
+              <Link href="/game" className="hover:text-cyan-400 transition-colors text-left cursor-pointer">GRID DEFENDER Tank Battle</Link>
+              <Link href="/game" className="hover:text-cyan-400 transition-colors text-left cursor-pointer">Arcade Setup Dashboard</Link>
+              <Link href="/controller" className="hover:text-cyan-400 transition-colors">Join Active Room</Link>
+            </div>
+
+            {/* Column 3: Setup Protocols */}
+            <div className="flex flex-col gap-3 text-xs">
+              <span className="font-extrabold uppercase tracking-widest text-zinc-200">Protocols</span>
+              <button onClick={() => scrollToSection('setup')} className="hover:text-cyan-400 transition-colors text-left cursor-pointer">1. Start Big Screen Host</button>
+              <button onClick={() => scrollToSection('setup')} className="hover:text-cyan-400 transition-colors text-left cursor-pointer">2. Scan Pairing QR Code</button>
+              <button onClick={() => scrollToSection('setup')} className="hover:text-cyan-400 transition-colors text-left cursor-pointer">3. Sync Landscape Layout</button>
+              <button onClick={() => scrollToSection('features')} className="hover:text-cyan-400 transition-colors text-left cursor-pointer">Connection Diagnostics</button>
+            </div>
+
+            {/* Column 4: Architecture Tech */}
+            <div className="flex flex-col gap-3 text-xs">
+              <span className="font-extrabold uppercase tracking-widest text-zinc-200">System Specs</span>
+              <span className="text-zinc-500">⚡ WebSocket Tunneling (&lt;50ms)</span>
+              <span className="text-zinc-500">🔊 Web Audio Oscillator Synthesis</span>
+              <span className="text-zinc-500">📳 Mobile Haptics API Engine</span>
+              <span className="text-zinc-500">👥 4-Player Local Squad Sync</span>
+            </div>
+          </div>
+
+          <div className="border-t border-zinc-900/80 my-2" />
+
+          {/* Bottom Row */}
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-[10px] text-zinc-600">
+            <p className="max-w-md text-center md:text-left leading-relaxed">
+              Desktop screen handles the 2D canvas simulation. Mobile browser relays coordinates over secure WebSocket ports. Both screens must be active.
+            </p>
+            <div className="flex gap-4">
+              <span className="hover:text-zinc-500 cursor-pointer">Terms of Operation</span>
+              <span className="hover:text-zinc-500 cursor-pointer">Security Protocol</span>
+            </div>
+            <p className="text-zinc-700 font-mono">
+              &copy; 2026 Neon Spark Arcade. All systems nominal.
+            </p>
+          </div>
+
+        </div>
+      </footer>
     </div>
   );
 }
