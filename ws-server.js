@@ -1,9 +1,24 @@
+const http = require('http');
 const { WebSocketServer } = require('ws');
 
 const port = process.env.PORT || 3001;
 
-const wss = new WebSocketServer({ port }, () => {
-  console.log(`🚀 WebSocket server running on port ${port}`);
+// Create a standard HTTP server to handle health checks
+const server = http.createServer((req, res) => {
+  if (req.url === '/' || req.url === '/health') {
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.end('OK - Server is healthy');
+  } else {
+    res.writeHead(404);
+    res.end();
+  }
+});
+
+// Attach the WebSocket server to the HTTP server
+const wss = new WebSocketServer({ server });
+
+server.listen(port, () => {
+  console.log(`🚀 Server listening on port ${port}`);
 });
 
 // Store rooms: roomId -> { hostSocket, guestSocket }
