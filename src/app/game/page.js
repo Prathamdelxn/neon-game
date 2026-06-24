@@ -135,6 +135,15 @@ export default function GamePage() {
   useEffect(() => {
     const initConnection = async () => {
       try {
+        // Fetch local IP address for localhost replacement
+        try {
+          const res = await fetch('/api/ip');
+          const data = await res.json();
+          setIpAddress(data.ip);
+        } catch (e) {
+          console.warn('Failed to fetch local IP API', e);
+        }
+
         const nextPublicWsUrl = process.env.NEXT_PUBLIC_WS_URL || process.env.NEXT_PUBLIC_WS_SERVER;
         const host = window.location.hostname;
         let wsUrl = nextPublicWsUrl || `ws://${host}:3001`;
@@ -745,9 +754,11 @@ export default function GamePage() {
     };
   }, [gameState, soundEnabled]);
 
-  // Controller Pairing URL
+  // Controller Pairing URL (auto-replaces localhost with resolved local IP for phone scans)
   const controllerUrl = typeof window !== 'undefined'
-    ? `${window.location.origin}/controller?room=${roomId}`
+    ? (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+      ? `${window.location.protocol}//${ipAddress}:${window.location.port || '3000'}/controller?room=${roomId}`
+      : `${window.location.origin}/controller?room=${roomId}`
     : '';
 
   return (
