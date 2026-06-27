@@ -73,15 +73,18 @@ export default function Home() {
           {/* Left Column: Heading and CTAs */}
           <div className="md:col-span-7 flex flex-col items-center md:items-start text-center md:text-left gap-6 animate-fade-in">
             <div className="inline-block px-4 py-1.5 text-xs font-semibold tracking-widest text-cyan-400 uppercase bg-cyan-950/20 border border-cyan-800/40 rounded-full shadow-[0_0_15px_rgba(6,182,212,0.05)]">
-              🚀 Multi-Screen Browser Console
+              🚀 Best Remote Multiplayer Game
             </div>
             
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-none bg-gradient-to-r from-white via-zinc-100 to-zinc-400 bg-clip-text text-transparent filter drop-shadow-[0_0_20px_rgba(6,182,212,0.15)]">
-              NEON SPARK
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-none bg-gradient-to-r from-white via-zinc-100 to-zinc-400 bg-clip-text text-transparent filter drop-shadow-[0_0_20px_rgba(6,182,212,0.15)]">
+              PLAY FREE MULTIPLAYER GAME
             </h1>
+            <h2 className="text-2xl mt-2 text-cyan-400 font-bold uppercase tracking-widest drop-shadow-[0_0_10px_rgba(6,182,212,0.5)]">
+              ON NEON SPARK ARCADE
+            </h2>
             
             <p className="text-base sm:text-lg text-zinc-400 max-w-xl leading-relaxed">
-              Steer space cruisers and battle tanks on the big screen using your phone as a flight stick. Instantly sync your controller, fire bouncing lasers, and conquer squadron missions.
+              Looking for a <strong>free remote game</strong> to play? Steer space cruisers and battle tanks on the big screen using your phone as a flight stick. Enjoy this ultimate <strong>free multiplayer game</strong> instantly with your friends. Sync your phone controller, fire lasers, and conquer missions at no cost!
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mt-4 z-20">
@@ -157,7 +160,7 @@ export default function Home() {
           
           <div className="text-center mb-16">
             <div className="text-[10px] text-cyan-400 font-bold uppercase tracking-[0.25em] mb-2">SETUP PROTOCOLS</div>
-            <h2 className="text-3xl md:text-4xl font-extrabold tracking-wide">THREE STEPS TO PLAY</h2>
+            <h2 className="text-3xl md:text-4xl font-extrabold tracking-wide">PLAY THIS FREE GAME IN 3 STEPS</h2>
             <div className="w-12 h-1 bg-cyan-500 mx-auto mt-4 rounded-full" />
           </div>
 
@@ -261,9 +264,9 @@ export default function Home() {
                 A real-time, multi-screen cooperative browser game platform. Turn your smartphone into a tactical console flight stick.
               </p>
               <div className="flex gap-3 text-xs mt-2 text-zinc-500">
-                <span className="hover:text-cyan-400 cursor-pointer">👾 Discord</span>
-                <span className="hover:text-cyan-400 cursor-pointer">🐙 GitHub</span>
-                <span className="hover:text-cyan-400 cursor-pointer">🐦 Twitter</span>
+                <Link href="/" className="hover:text-cyan-400 cursor-pointer transition-colors">👾 Discord</Link>
+                <Link href="/" className="hover:text-cyan-400 cursor-pointer transition-colors">🐙 GitHub</Link>
+                <Link href="/" className="hover:text-cyan-400 cursor-pointer transition-colors">🐦 Twitter</Link>
               </div>
             </div>
 
@@ -303,8 +306,8 @@ export default function Home() {
               Desktop screen handles the 2D canvas simulation. Mobile browser relays coordinates over secure WebSocket ports. Both screens must be active.
             </p>
             <div className="flex gap-4">
-              <span className="hover:text-zinc-500 cursor-pointer">Terms of Operation</span>
-              <span className="hover:text-zinc-500 cursor-pointer">Security Protocol</span>
+              <Link href="/" className="hover:text-zinc-500 cursor-pointer transition-colors">Terms of Operation</Link>
+              <Link href="/" className="hover:text-zinc-500 cursor-pointer transition-colors">Security Protocol</Link>
             </div>
             <p className="text-zinc-700 font-mono">
               &copy; 2026 Neon Spark Arcade. All systems nominal.

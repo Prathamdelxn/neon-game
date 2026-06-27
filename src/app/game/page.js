@@ -12,6 +12,7 @@ export default function GamePage() {
   const [gameState, setGameState] = useState('pairing'); // pairing, playing, gameover
   const [score, setScore] = useState(0);
   const [players, setPlayers] = useState([]);
+  const [qrLoaded, setQrLoaded] = useState(false);
   
   // Game modes: 'menu', 'solo_remote', 'lobby'
   const [gameMode, setGameMode] = useState('menu');
@@ -1906,6 +1907,15 @@ export default function GamePage() {
           </div>
         )}
 
+        {/* Connecting to Server Loading State */}
+        {gameMode !== 'menu' && gameMode !== 'solo_keyboard' && gameState === 'pairing' && !roomId && !error && (
+          <div className="flex flex-col items-center justify-center p-16 bg-zinc-950/80 rounded-3xl border border-cyan-800/50 shadow-[0_0_50px_rgba(6,182,212,0.15)] animate-pulse w-full max-w-2xl mx-auto z-20">
+            <div className="w-16 h-16 border-4 border-cyan-500/30 border-t-cyan-400 rounded-full animate-spin shadow-[0_0_25px_rgba(6,182,212,0.6)] mb-6" />
+            <h2 className="text-xl font-black text-cyan-400 tracking-[0.2em] uppercase mb-2">Connecting to Server</h2>
+            <p className="text-zinc-500 text-xs tracking-widest uppercase">Establishing Secure WebSocket Tunnel...</p>
+          </div>
+        )}
+
         {/* 2. PAIRING/LOBBY INTERFACES */}
         {gameMode !== 'menu' && gameMode !== 'solo_keyboard' && gameState === 'pairing' && roomId && (
           <div className="flex flex-col lg:flex-row items-center justify-center bg-zinc-950/80 p-8 rounded-3xl border border-zinc-800/80 shadow-[0_0_50px_rgba(168,85,247,0.15)] max-w-4xl w-full mx-auto gap-12 animate-fade-in">
@@ -1955,14 +1965,21 @@ export default function GamePage() {
               </div>
               
               {/* QR Code Container */}
-              <div className="bg-white p-3 rounded-xl shadow-lg shadow-black/80 mb-3">
+              <div className="bg-white p-3 rounded-xl shadow-[0_0_20px_rgba(6,182,212,0.4)] mb-3 relative w-[204px] h-[204px] flex items-center justify-center">
+                {!qrLoaded && (
+                  <div className="absolute inset-0 flex flex-col items-center justify-center bg-zinc-950/90 rounded-xl z-10 border border-cyan-500/50">
+                    <div className="w-8 h-8 border-4 border-cyan-500/30 border-t-cyan-400 rounded-full animate-spin shadow-[0_0_15px_rgba(6,182,212,0.6)] mb-2" />
+                    <span className="text-[9px] font-bold text-cyan-400 uppercase tracking-widest animate-pulse">Generating</span>
+                  </div>
+                )}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img 
                   src={`https://api.qrserver.com/v1/create-qr-code/?size=180x180&color=050114&data=${encodeURIComponent(controllerUrl)}`} 
                   alt="Pairing QR Code" 
                   width={180}
                   height={180}
-                  className="rounded-lg"
+                  className={`rounded-lg transition-opacity duration-300 ${qrLoaded ? 'opacity-100' : 'opacity-0'}`}
+                  onLoad={() => setQrLoaded(true)}
                 />
               </div>
 
