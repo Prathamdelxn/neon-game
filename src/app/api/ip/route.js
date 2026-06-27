@@ -5,6 +5,8 @@ export async function GET() {
   const networkInterfaces = os.networkInterfaces();
   let ip = '127.0.0.1';
 
+  //adsfadsfda
+
   // Iterate over network interfaces to find the local network IPv4 address
   for (const interfaceName in networkInterfaces) {
     const interfaces = networkInterfaces[interfaceName];
